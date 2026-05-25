@@ -4,7 +4,10 @@ Pacote pronto para subir em um repositório GitHub e publicar como site estátic
 
 ## Estrutura
 
-- `index.html` — site single-file com rotas por hash: `#home`, `#quem-somos`, `#solucoes`, `#blog`, `#contato`.
+- `index.html` — página principal com navegação por URLs reais.
+- `quem-somos/`, `solucoes/`, `blog/`, `contato/` — cópias estáticas com metadados próprios para SEO e compartilhamento.
+- `blog/*/` — artigos com URLs próprias, datas estruturadas e metadados sociais.
+- `404.html` — fallback para navegação direta em hospedagens estáticas.
 - `Syne-VariableFont_wght.ttf` — fonte display usada nos títulos.
 - `Manrope-VariableFont_wght.ttf` — fonte de corpo.
 - `assets/` — arquivos de apoio e identidade visual enviados no projeto.
@@ -32,6 +35,8 @@ git push -u origin main
 
 ## Observações
 
-O HTML busca as fontes locais na mesma pasta do arquivo `index.html`. Por isso, mantenha os arquivos `.ttf` na raiz do projeto ou ajuste os caminhos no `@font-face`.
+O HTML busca as fontes locais na raiz do site. Por isso, mantenha os arquivos `.ttf` na raiz do projeto ou ajuste os caminhos no `@font-face`.
+
+As imagens de Open Graph ficam em `assets/og-*.png` no formato 1200×630.
 
 O rodapé contém o crédito externo: **Desenvolvido por metry.cc**.
