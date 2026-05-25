@@ -564,38 +564,37 @@ Momento: ${data.momento||''}
 Prazo: ${data.prazo||''}
 Faturamento: ${data.faturamento||''}
 Desafio: ${data.desafio||''}`; window.open('https://wa.me/5517991334338?text='+encodeURIComponent(text),'_blank','noopener')});  </script>
-</body>
-</html
-    (function(){
-      const heroSection=document.querySelector('.hero.section');
-      const heroMedia=document.querySelector('.hero-media');
-      const heroTitle=document.querySelector('.hero-title-wrap');
-      if(!heroMedia||!heroSection)return;
-      const isMobile=()=>window.innerWidth<=768;
-      function update(){
-        const homePage=document.getElementById('page-home');
-        if(!homePage||!homePage.classList.contains('active')){
-          heroMedia.style.transform='';
-          if(heroTitle)heroTitle.style.transform='';
-          return;
-        }
-        const rect=heroSection.getBoundingClientRect();
-        const scrollable=heroSection.offsetHeight-window.innerHeight;
-        if(scrollable<=0)return;
-        const progress=Math.min(1,Math.max(0,-rect.top/scrollable));
-        const scaleStart=isMobile()?0.7:1.05;
-        const scaleEnd=isMobile()?0.9:1;
-        const rotate=20*(1-progress);
-        const scale=scaleStart+(scaleEnd-scaleStart)*progress;
-        const ty=-100*progress;
-        heroMedia.style.transform=`perspective(1000px) rotateX(${rotate}deg) scale(${scale})`;
-        if(heroTitle)heroTitle.style.transform=`translateY(${ty}px)`;
+<script>
+  (function(){
+    const heroSection=document.querySelector('.hero.section');
+    const heroMedia=document.querySelector('.hero-media');
+    const heroTitle=document.querySelector('.hero-title-wrap');
+    if(!heroMedia||!heroSection)return;
+    const isMobile=()=>window.innerWidth<=768;
+    function update(){
+      const homePage=document.getElementById('page-home');
+      if(!homePage||!homePage.classList.contains('active')){
+        heroMedia.style.transform='';
+        if(heroTitle)heroTitle.style.transform='';
+        return;
       }
-      window.addEventListener('scroll',update,{passive:true});
-      window.addEventListener('resize',update,{passive:true});
-      window.addEventListener('hashchange',function(){setTimeout(update,50);});
-      update();
-        })();
-  </script>
+      const rect=heroSection.getBoundingClientRect();
+      const scrollable=heroSection.offsetHeight-window.innerHeight;
+      if(scrollable<=0)return;
+      const progress=Math.min(1,Math.max(0,-rect.top/scrollable));
+      const scaleStart=isMobile()?0.7:1.05;
+      const scaleEnd=isMobile()?0.9:1;
+      const rotate=20*(1-progress);
+      const scale=scaleStart+(scaleEnd-scaleStart)*progress;
+      const ty=-100*progress;
+      heroMedia.style.transform=`perspective(1000px) rotateX(${rotate}deg) scale(${scale})`;
+      if(heroTitle)heroTitle.style.transform=`translateY(${ty}px)`;
+    }
+    window.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update,{passive:true});
+    window.addEventListener('hashchange',function(){setTimeout(update,50);});
+    update();
+  })();
+</script>
 </body>
 </html>
