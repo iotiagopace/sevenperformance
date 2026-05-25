@@ -1,2 +1,2 @@
-# sevenperformance
-Website institucional da Seven Performance — consultoria de expansão de franquias, vendas e performance comercial. Desenvolvido pela Metry.
+Seven Performance Website
+Site institucional desenvolvido para a Seven Performance, consultoria B2B especializada em expansão de franquias, estruturação comercial, formatação de modelos de negócio e construção de máquinas de vendas. O projeto foi construído em HTML, CSS e JavaScript vanilla, com foco em performance, SEO, experiência premium e publicação simples via GitHub Pages ou hospedagem estática.
