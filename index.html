@@ -582,8 +582,16 @@
     modalButtons.forEach(btn=>btn.addEventListener('click',()=>openModal(btn.dataset.modal)));
     document.addEventListener('click',e=>{if(e.target.matches('[data-close]')) closeModals();});
     document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModals();});
-    const form=document.getElementById('diagnostic-form');
-    form?.addEventListener('submit',e=>{e.preventDefault(); const data=Object.fromEntries(new FormData(form)); const text=`Olá, Seven Performance. Quero solicitar uma reunião de diagnóstico.
+    const APPS_SCRIPT_URL = 'COLE_A_URL_AQUI'; // cole a URL do Apps Script após publicar
+    const form = document.getElementById('diagnostic-form');
+    const btnSubmit = form?.querySelector('button[type="submit"]');
+
+    form?.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+
+      // 1. Abre WhatsApp imediatamente
+      const text = `Olá, Seven Performance. Quero solicitar uma reunião de diagnóstico.
 
 Nome: ${data.nome||''}
 Empresa: ${data.empresa||''}
@@ -593,7 +601,27 @@ Foco: ${data.foco||''}
 Momento: ${data.momento||''}
 Prazo: ${data.prazo||''}
 Faturamento: ${data.faturamento||''}
-Desafio: ${data.desafio||''}`; window.open('https://wa.me/5517991334338?text='+encodeURIComponent(text),'_blank','noopener')});  </script>
+Desafio: ${data.desafio||''}`;
+      window.open('https://wa.me/5517991334338?text=' + encodeURIComponent(text), '_blank', 'noopener');
+
+      // 2. Envia para Google Sheets + Email em paralelo
+      if (APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'COLE_A_URL_AQUI') {
+        try {
+          if (btnSubmit) { btnSubmit.textContent = 'Enviando...'; btnSubmit.disabled = true; }
+          await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(data)
+          });
+          if (btnSubmit) { btnSubmit.textContent = '✓ Enviado com sucesso!'; }
+          setTimeout(() => {
+            form.reset();
+            if (btnSubmit) { btnSubmit.textContent = 'Enviar diagnóstico pelo WhatsApp →'; btnSubmit.disabled = false; }
+          }, 3000);
+        } catch(err) {
+          if (btnSubmit) { btnSubmit.textContent = 'Enviar diagnóstico pelo WhatsApp →'; btnSubmit.disabled = false; }
+        }
+      }
+    });  </script>
 <script>
   (function(){
     const heroSection=document.querySelector('.hero.section');
